@@ -1,0 +1,110 @@
+﻿<html>
+
+<head>
+<script type="text/javascript"> 
+imageDir = "http://mvcreative.ru/example/6/2/snow/"; 
+sflakesMax = 65; 
+sflakesMaxActive = 65; 
+svMaxX = 2; 
+svMaxY = 6; 
+ssnowStick = 1; 
+ssnowCollect = 0; 
+sfollowMouse = 1; 
+sflakeBottom = 0; 
+susePNG = 1; 
+sflakeTypes = 7; 
+sflakeWidth = 15; 
+sflakeHeight = 15; 
+</script> 
+<script type="text/javascript" src="http://mvcreative.ru/example/6/2/snow.js">
+</script>
+  <meta http-equiv='content-type' content='text/html; charset=UTF-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link type="text/css" rel="StyleSheet" href="/my.css" />
+  <title>Данные с датчиков</title>
+ <script>
+function GetFlameState() {
+nocache = "&nocache=" + Math.random() * 1000000;
+var request = new XMLHttpRequest();
+request.onreadystatechange = function() {
+if (this.readyState == 4) {
+if (this.status == 200) {
+if (this.responseText != null) {
+var arrayOfStrings = this.responseText.split(":");
+
+document.getElementById("flame_txt").innerHTML = arrayOfStrings[0];
+document.getElementById("temp_txt").innerHTML = arrayOfStrings[1];
+document.getElementById("humid_txt").innerHTML = arrayOfStrings[2];
+document.getElementById("press_txt").innerHTML = arrayOfStrings[3];
+for(var i = 1 ; i < 4 ; i++)
+if(arrayOfStrings[4+i] == "1")
+document.getElementById("led_"+i).setAttribute("class","button_enabled");
+else
+document.getElementById("led_"+i).setAttribute("class","button_disabled");
+}
+}
+}
+}
+request.open("GET", "ajax_flame" + nocache, true);
+request.send(null);
+setTimeout('GetFlameState()', 1000);
+}
+function onClick(pin){
+var request = new XMLHttpRequest();
+request.open("GET", "\setpin?pin=" + pin, false);
+request.send(null);
+}
+</script>
+
+</head>
+
+<body onload="GetFlameState()">
+
+  <div class="form">
+    <h2>RamDuino Web ver. 0.2</h2>
+    <hr noshade size="1px" color="white">
+    <table align="center">
+      <tr>
+        <td><img src='flame.png' /></td>
+        <td valign="center">Датчик дыма</td>
+        <td><span id="flame_txt"> 0</span></td>
+      </tr>
+
+      <tr>
+        <td><img src='temp.png' /></td>
+        <td valign="center">Температура</td>
+        <td><span id="temp_txt">0</span> °C</td>
+      </tr>
+
+      <tr>
+        <td><img src='humid.png' /></td>
+        <td valign="center">Влажность</td>
+        <td><span id="humid_txt">0</span> %</td>
+      </tr>
+	  
+	  <tr>
+        <td><img src='press.png' /></td>
+        <td valign="center">Давление</td>
+        <td><span id="press_txt">0</span></td>
+      </tr>
+	  
+    </table>
+    <br>
+    <center>
+      <button type="button" id="led_1" class="button_disabled" onClick="onClick(1)">Реле №1</button>
+      <button type="button" id="led_2" class="button_disabled" onClick="onClick(2)">Реле №2</button>
+      <button type="button" id="led_3" class="button_disabled" onClick="onClick(3)">Реле №3</button>
+      <button type="button" id="led_4" class="button_disabled" onClick="onClick(4)">Реле №4</button> 
+	  <br /><br />  <a href="http://put-k-uspehy.ru/elka_s_animaciey_dly_vashego_sayta/" target="_blank"><img src="http://put-k-uspehy.ru/wp-content/uploads/2011/12/ёлка_на_сайт_elka_na_sayt-09.gif" alt="ёлка_на_сайт_elka_na_sayt-09" title="ёлка_на_сайт_elka_na_sayt-09" width="125" height="154" class="alignleft size-full wp-image-722" /></a>   <a href="http://put-k-uspehy.ru/elka_s_animaciey_dly_vashego_sayta/" target="_blank"><img class="alignleft size-full wp-image-718" title="ёлка_на_сайт_elka_na_sayt-05" src="http://put-k-uspehy.ru/wp-content/uploads/2011/12/ёлка_на_сайт_elka_na_sayt-05.gif" alt="ёлка_на_сайт_elka_na_sayt-05" width="127" height="145" /></a>   <a href="http://put-k-uspehy.ru/elka_s_animaciey_dly_vashego_sayta/" target="_blank"><img src="http://put-k-uspehy.ru/wp-content/uploads/2011/12/ёлка_на_сайт_elka_na_sayt_14.gif" alt="ёлка_на_сайт_elka_na_sayt_14" title="ёлка_на_сайт_elka_na_sayt_14" width="95" height="160" class="alignleft size-full wp-image-657" /></a> 
+	 <div class="cleanslate w24tz-current-time w24tz-small" style="display: inline-block !important; visibility: hidden !important; min-width:180px !important; min-height:100px !important;"><p><a href="//24timezones.com/world_directory/time_in_odesa.php" style="text-decoration: none" class="clock24" id="tz24-1536617713-c1366-eyJob3VydHlwZSI6IjI0Iiwic2hvd2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIwIiwiY29udGFpbmVyX2lkIjoiY2xvY2tfYmxvY2tfY2I1Yjk2ZWNmMTdiYzY1IiwidHlwZSI6ImRiIiwibGFuZyI6InJ1In0=" title="точное время Odesa" target="_blank" rel="nofollow">Текущее время в Одессе</a></p><div id="clock_block_cb5b96ecf17bc65"></div></div>
+<script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
+<a href="http://100btc.ru/" target=_blank><img src="http://100btc.ru/informer/BTC-USD_200x100_kurs.png" border="0" title="Bitcoin" width="200" height="100" alt="Курс Bitcoin к USD"></a>
+<p>
+<iframe allowfullscreen="" frameborder="0" height="450" src="//www.youtube.com/embed/live_stream?channel=UCWUYQk9IfAJe7Vg86z93aYA&autoplay=1" width="450"></iframe>
+</p>
+
+    </center>
+</div>
+    </Body>
+</html>
